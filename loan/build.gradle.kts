@@ -50,3 +50,8 @@ kotlin {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+detekt {
+	toolVersion = detektVersion
+	autoCorrect = true
+}
