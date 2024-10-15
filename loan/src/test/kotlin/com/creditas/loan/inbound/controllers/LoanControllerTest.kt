@@ -1,9 +1,13 @@
-package com.creditas.loan.controllers
+package com.creditas.loan.inbound.controllers
 
-import com.creditas.loan.controllers.resources.PersonInfoPayload
-import com.creditas.loan.controllers.resources.PersonInfoRequest
-import com.creditas.loan.controllers.resources.SuitableLoanPayload
-import com.creditas.loan.controllers.resources.SuitableLoansResponse
+import com.creditas.loan.applications.SuitableLoanApplication
+import com.creditas.loan.domain.Loan
+import com.creditas.loan.inbound.controllers.resources.PersonInfoPayload
+import com.creditas.loan.inbound.controllers.resources.PersonInfoRequest
+import com.creditas.loan.inbound.controllers.resources.SuitableLoanPayload
+import com.creditas.loan.inbound.controllers.resources.SuitableLoansResponse
+import io.mockk.every
+import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -13,11 +17,12 @@ import org.springframework.http.HttpStatus.OK
 import org.springframework.http.ResponseEntity
 
 internal class LoanControllerTest {
-    private val loanController = LoanController()
+    private val suitableLoanApplication = mockk<SuitableLoanApplication>()
+    private val loanController = LoanController(suitableLoanApplication)
 
     @Nested
-    @DisplayName("given a request with a person info")
-    inner class CheckSuitableLoans {
+    @DisplayName("given a request with some person info")
+    inner class GetSuitableLoans {
         private val personInfoRequest = PersonInfoRequest(
             customer = PersonInfoPayload(
                 name = "Daniel",
@@ -30,7 +35,11 @@ internal class LoanControllerTest {
         private lateinit var result: ResponseEntity<SuitableLoansResponse>
 
         @BeforeEach
-        fun act() {
+        fun arrangeAndAct() {
+            every {
+                suitableLoanApplication.process(personInfoRequest.toPersonInfo())
+            } returns listOf(Loan(type = "Personal", taxes = 4.0))
+
             result = loanController.getSuitableLoans(personInfoRequest)
         }
 

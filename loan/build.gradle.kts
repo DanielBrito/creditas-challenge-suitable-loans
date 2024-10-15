@@ -24,6 +24,7 @@ repositories {
 
 val assertJVersion = "3.26.3"
 var detektVersion = "1.23.7"
+var mockkVersion = "1.13.12"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
@@ -35,8 +36,8 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-	testImplementation("org.mockito:mockito-core:3.+")
 	testImplementation("org.assertj:assertj-core:$assertJVersion")
+	testImplementation("io.mockk:mockk:$mockkVersion")
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
