@@ -1,7 +1,7 @@
 package com.creditas.loan.applications
 
+import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
-import com.creditas.loan.domain.PersonInfo
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -11,12 +11,12 @@ internal class SuitableLoanApplicationTest {
     private val suitableLoanApplication = SuitableLoanApplication()
 
     @Nested
-    @DisplayName("given some person info")
+    @DisplayName("given some customer info")
     inner class ProcessSuitableLoans {
 
         @Test
         fun `returns personal loan if income is less than or equal to 3000`() {
-            val personInfo = PersonInfo(
+            val customer = Customer(
                 name = "Daniel",
                 age = 30,
                 location = "SP",
@@ -29,14 +29,14 @@ internal class SuitableLoanApplicationTest {
                 )
             )
 
-            val result = suitableLoanApplication.process(personInfo)
+            val result = suitableLoanApplication.process(customer)
 
             assertThat(result).isEqualTo(expectedSuitableLoan)
         }
 
         @Test
         fun `returns personal loan if income is greater than 3000 or less than 5000`() {
-            val personInfo = PersonInfo(
+            val customer = Customer(
                 name = "Daniel",
                 age = 30,
                 location = "SP",
@@ -49,14 +49,14 @@ internal class SuitableLoanApplicationTest {
                 )
             )
 
-            val result = suitableLoanApplication.process(personInfo)
+            val result = suitableLoanApplication.process(customer)
 
             assertThat(result).isEqualTo(expectedSuitableLoan)
         }
 
         @Test
         fun `returns personal loan if income is greater or equal to 5000`() {
-            val personInfo = PersonInfo(
+            val customer = Customer(
                 name = "Daniel",
                 age = 30,
                 location = "SP",
@@ -69,7 +69,7 @@ internal class SuitableLoanApplicationTest {
                 )
             )
 
-            val result = suitableLoanApplication.process(personInfo)
+            val result = suitableLoanApplication.process(customer)
 
             assertThat(result).isEqualTo(expectedSuitableLoan)
         }

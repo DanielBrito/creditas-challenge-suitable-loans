@@ -1,7 +1,7 @@
 package com.creditas.loan.applications
 
+import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
-import com.creditas.loan.domain.PersonInfo
 import org.springframework.stereotype.Component
 
 @Component
@@ -12,12 +12,12 @@ class SuitableLoanApplication {
         const val FIVE_THOUSAND = 5000.0
     }
 
-    fun process(personInfo: PersonInfo): List<Loan> {
+    fun process(customer: Customer): List<Loan> {
         val suitableLoans = mutableListOf<Loan>()
 
-        if (incomeIsInLowerRange(personInfo.income) ||
-            incomeIsInMiddleRange(personInfo.income) ||
-            incomeIsInUpperRange(personInfo.income)
+        if (incomeIsInLowerRange(customer.income) ||
+            incomeIsInMiddleRange(customer.income) ||
+            incomeIsInUpperRange(customer.income)
         ) {
             suitableLoans.add(Loan(type = "Personal", taxes = 4.0))
         }

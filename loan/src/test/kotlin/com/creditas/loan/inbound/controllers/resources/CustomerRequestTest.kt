@@ -1,21 +1,21 @@
 package com.creditas.loan.inbound.controllers.resources
 
-import com.creditas.loan.domain.PersonInfo
+import com.creditas.loan.domain.Customer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-internal class PersonInfoRequestTest {
+internal class CustomerRequestTest {
 
     @Nested
-    @DisplayName("given a person info request")
-    inner class PersonInfoRequestToPersonInfoDomain {
+    @DisplayName("given a customer request")
+    inner class CustomerRequestToCustomerDomain {
 
         @Test
-        fun `maps to person info domain`() {
-            val personInfoRequest = PersonInfoRequest(
-                customer = PersonInfoPayload(
+        fun `maps to customer domain`() {
+            val customerRequest = CustomerRequest(
+                customer = CustomerInfoPayload(
                     name = "Daniel",
                     cpf = "123.456.789-10",
                     age = 31,
@@ -23,22 +23,22 @@ internal class PersonInfoRequestTest {
                     income = 3000.0
                 )
             )
-            val expectedPersonInfo = PersonInfo(
+            val expectedCustomer = Customer(
                 name = "Daniel",
                 age = 31,
                 location = "CE",
                 income = 3000.0
             )
 
-            val result = personInfoRequest.toPersonInfo()
+            val result = customerRequest.toCustomer()
 
-            assertThat(result).isEqualTo(expectedPersonInfo)
+            assertThat(result).isEqualTo(expectedCustomer)
         }
 
         @Test
         fun `returns name from customer object`() {
-            val personInfoRequest = PersonInfoRequest(
-                customer = PersonInfoPayload(
+            val customerRequest = CustomerRequest(
+                customer = CustomerInfoPayload(
                     name = "Daniel",
                     cpf = "123.456.789-10",
                     age = 31,
@@ -47,7 +47,7 @@ internal class PersonInfoRequestTest {
                 )
             )
 
-            val result = personInfoRequest.getName()
+            val result = customerRequest.getName()
 
             assertThat(result).isEqualTo("Daniel")
         }
