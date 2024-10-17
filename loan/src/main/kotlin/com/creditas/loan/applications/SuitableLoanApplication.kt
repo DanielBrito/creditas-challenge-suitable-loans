@@ -3,9 +3,9 @@ package com.creditas.loan.applications
 import com.creditas.loan.applications.handlers.LoanHandler
 import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
+@Component
 class SuitableLoanApplication(
     val loanHandler: List<LoanHandler>
 ) {
