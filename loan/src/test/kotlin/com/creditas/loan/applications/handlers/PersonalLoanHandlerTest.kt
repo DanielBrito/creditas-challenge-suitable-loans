@@ -17,7 +17,7 @@ internal class PersonalLoanHandlerTest {
         private val expectedSuitableLoans = mutableListOf(PersonalLoan())
 
         @Test
-        fun `adds personal loan to list if income is from tier one`() {
+        fun `adds personal loan if income is from tier one`() {
             val customer = Customer(
                 name = "Daniel",
                 age = 30,
@@ -32,7 +32,7 @@ internal class PersonalLoanHandlerTest {
         }
 
         @Test
-        fun `adds personal loan to list if income is from tier two`() {
+        fun `adds personal loan if income is from tier two`() {
             val customer = Customer(
                 name = "Daniel",
                 age = 30,
@@ -47,7 +47,7 @@ internal class PersonalLoanHandlerTest {
         }
 
         @Test
-        fun `adds personal loan to list if income from tier three`() {
+        fun `adds personal loan if income from tier three`() {
             val customer = Customer(
                 name = "Daniel",
                 age = 30,
