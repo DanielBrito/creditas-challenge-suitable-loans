@@ -1,8 +1,6 @@
-package inbound
+package com.creditas.loan.inbound
 
 import com.creditas.loan.LoanApplication
-import com.fasterxml.jackson.module.kotlin.jsonMapper
-import helpers.FileLoader
 import helpers.FileLoader.readJsonResource
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
