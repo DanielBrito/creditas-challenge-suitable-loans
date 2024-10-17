@@ -15,4 +15,6 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
           cache: 'gradle'
-      - run: ./gradlew detekt --input loan
+      - name: Run Detekt
+        working-directory: loan
+        run: ./gradlew detekt
