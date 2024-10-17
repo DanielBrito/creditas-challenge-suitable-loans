@@ -1,6 +1,5 @@
-package com.creditas.loan
+package com.creditas.loan.domain
 
-import com.creditas.loan.domain.Customer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

@@ -4,7 +4,9 @@ plugins {
 
 	id("org.springframework.boot") version "3.3.4"
 	id("io.spring.dependency-management") version "1.1.6"
+
 	id("info.solidsoft.pitest") version "1.15.0"
+	id("org.unbroken-dome.test-sets") version "4.1.0"
 	id("io.gitlab.arturbosch.detekt") version "1.23.7"
 	id("jacoco")
 }
@@ -26,6 +28,10 @@ val assertJVersion = "3.26.3"
 var detektVersion = "1.23.7"
 var mockkVersion = "1.13.12"
 
+testSets {
+	"componentTest"()
+}
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -35,7 +41,6 @@ dependencies {
 	compileOnly("org.springframework.boot:spring-boot-devtools")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.assertj:assertj-core:$assertJVersion")
 	testImplementation("io.mockk:mockk:$mockkVersion")
 

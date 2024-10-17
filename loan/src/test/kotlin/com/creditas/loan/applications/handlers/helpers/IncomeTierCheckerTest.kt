@@ -12,6 +12,7 @@ class IncomeTierCheckerTest {
     inner class CheckIncomeTier {
 
         @Nested
+        @DisplayName("when checking tier one")
         inner class TierOne {
 
             @Test
@@ -30,6 +31,7 @@ class IncomeTierCheckerTest {
         }
 
         @Nested
+        @DisplayName("when checking tier two")
         inner class TierTwo {
 
             @Test
@@ -55,6 +57,7 @@ class IncomeTierCheckerTest {
         }
 
         @Nested
+        @DisplayName("when checking tier three")
         inner class TierThree {
 
             @Test

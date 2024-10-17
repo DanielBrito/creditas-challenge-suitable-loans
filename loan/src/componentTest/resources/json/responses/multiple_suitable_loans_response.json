@@ -1,0 +1,17 @@
+{
+  "customer": "Daniel",
+  "loans": [
+    {
+      "type": "Payroll",
+      "taxes": 2.0
+    },
+    {
+      "type": "Personal",
+      "taxes": 4.0
+    },
+    {
+      "type": "Collateralized",
+      "taxes": 3.0
+    }
+  ]
+}

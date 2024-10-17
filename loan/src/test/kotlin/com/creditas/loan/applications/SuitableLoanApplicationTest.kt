@@ -1,7 +1,6 @@
 package com.creditas.loan.applications
 
-import com.creditas.loan.applications.handlers.LoanHandler
-import com.creditas.loan.domain.CollateralizedLoan
+import com.creditas.loan.applications.handlers.PersonalLoanHandler
 import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
 import com.creditas.loan.domain.PersonalLoan
@@ -14,8 +13,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 internal class SuitableLoanApplicationTest {
-    private val loanHandler = mockk<LoanHandler>(relaxed = true)
-    private val suitableLoanApplication = SuitableLoanApplication(loanHandler)
+    private val personalLoanHandler = mockk<PersonalLoanHandler>(relaxed = true)
+    private val suitableLoanApplication = SuitableLoanApplication(listOf(personalLoanHandler))
 
     @Nested
     @DisplayName("given some customer info")
@@ -29,17 +28,17 @@ internal class SuitableLoanApplicationTest {
                 location = "SP",
                 income = 2000.0
             )
-            val suitableLoansSlot = slot<MutableList<Loan>>()
-            val expectedSuitableLoans = mutableListOf(PersonalLoan(), CollateralizedLoan())
+            val personalLoan = PersonalLoan()
 
-            every { loanHandler.handle(customer, capture(suitableLoansSlot)) } answers {
-                suitableLoansSlot.captured.add(PersonalLoan())
-                suitableLoansSlot.captured.add(CollateralizedLoan())
+            val suitableLoansSlot = slot<MutableList<Loan>>()
+
+            every { personalLoanHandler.handle(customer, capture(suitableLoansSlot)) } answers {
+                suitableLoansSlot.captured.add(personalLoan)
             }
 
             val result = suitableLoanApplication.process(customer)
 
-            assertThat(result).isEqualTo(expectedSuitableLoans)
+            assertThat(result).containsExactly(personalLoan)
         }
     }
 }
