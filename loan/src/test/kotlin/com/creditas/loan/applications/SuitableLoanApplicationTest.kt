@@ -1,77 +1,45 @@
 package com.creditas.loan.applications
 
+import com.creditas.loan.applications.handlers.LoanHandler
+import com.creditas.loan.domain.CollateralizedLoan
+import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
-import com.creditas.loan.domain.PersonInfo
+import com.creditas.loan.domain.PersonalLoan
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.slot
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 internal class SuitableLoanApplicationTest {
-    private val suitableLoanApplication = SuitableLoanApplication()
+    private val loanHandler = mockk<LoanHandler>(relaxed = true)
+    private val suitableLoanApplication = SuitableLoanApplication(loanHandler)
 
     @Nested
-    @DisplayName("given some person info")
+    @DisplayName("given some customer info")
     inner class ProcessSuitableLoans {
 
         @Test
-        fun `returns personal loan if income is less than or equal to 3000`() {
-            val personInfo = PersonInfo(
+        fun `returns suitable loans`() {
+            val customer = Customer(
                 name = "Daniel",
-                age = 30,
+                age = 25,
                 location = "SP",
                 income = 2000.0
             )
-            val expectedSuitableLoan = listOf(
-                Loan(
-                    type = "Personal",
-                    taxes = 4.0
-                )
-            )
+            val suitableLoansSlot = slot<MutableList<Loan>>()
+            val expectedSuitableLoans = mutableListOf(PersonalLoan(), CollateralizedLoan())
 
-            val result = suitableLoanApplication.process(personInfo)
+            every { loanHandler.handle(customer, capture(suitableLoansSlot)) } answers {
+                suitableLoansSlot.captured.add(PersonalLoan())
+                suitableLoansSlot.captured.add(CollateralizedLoan())
+            }
 
-            assertThat(result).isEqualTo(expectedSuitableLoan)
-        }
+            val result = suitableLoanApplication.process(customer)
 
-        @Test
-        fun `returns personal loan if income is greater than 3000 or less than 5000`() {
-            val personInfo = PersonInfo(
-                name = "Daniel",
-                age = 30,
-                location = "SP",
-                income = 4000.0
-            )
-            val expectedSuitableLoan = listOf(
-                Loan(
-                    type = "Personal",
-                    taxes = 4.0
-                )
-            )
-
-            val result = suitableLoanApplication.process(personInfo)
-
-            assertThat(result).isEqualTo(expectedSuitableLoan)
-        }
-
-        @Test
-        fun `returns personal loan if income is greater or equal to 5000`() {
-            val personInfo = PersonInfo(
-                name = "Daniel",
-                age = 30,
-                location = "SP",
-                income = 6000.0
-            )
-            val expectedSuitableLoan = listOf(
-                Loan(
-                    type = "Personal",
-                    taxes = 4.0
-                )
-            )
-
-            val result = suitableLoanApplication.process(personInfo)
-
-            assertThat(result).isEqualTo(expectedSuitableLoan)
+            assertThat(result).isEqualTo(expectedSuitableLoans)
         }
     }
 }

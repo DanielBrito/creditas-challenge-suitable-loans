@@ -1,9 +1,9 @@
 package com.creditas.loan.inbound.controllers
 
 import com.creditas.loan.applications.SuitableLoanApplication
-import com.creditas.loan.domain.Loan
-import com.creditas.loan.inbound.controllers.resources.PersonInfoPayload
-import com.creditas.loan.inbound.controllers.resources.PersonInfoRequest
+import com.creditas.loan.domain.PersonalLoan
+import com.creditas.loan.inbound.controllers.resources.CustomerInfoPayload
+import com.creditas.loan.inbound.controllers.resources.CustomerRequest
 import com.creditas.loan.inbound.controllers.resources.SuitableLoanPayload
 import com.creditas.loan.inbound.controllers.resources.SuitableLoansResponse
 import io.mockk.every
@@ -21,10 +21,10 @@ internal class LoanControllerTest {
     private val loanController = LoanController(suitableLoanApplication)
 
     @Nested
-    @DisplayName("given a request with some person info")
+    @DisplayName("given a request with some customer info")
     inner class GetSuitableLoans {
-        private val personInfoRequest = PersonInfoRequest(
-            customer = PersonInfoPayload(
+        private val customerRequest = CustomerRequest(
+            customer = CustomerInfoPayload(
                 name = "Daniel",
                 cpf = "123.456.789-10",
                 age = 31,
@@ -37,10 +37,10 @@ internal class LoanControllerTest {
         @BeforeEach
         fun arrangeAndAct() {
             every {
-                suitableLoanApplication.process(personInfoRequest.toPersonInfo())
-            } returns listOf(Loan(type = "Personal", taxes = 4.0))
+                suitableLoanApplication.process(customerRequest.toCustomer())
+            } returns listOf(PersonalLoan(type = "Personal", taxes = 4.0))
 
-            result = loanController.getSuitableLoans(personInfoRequest)
+            result = loanController.getSuitableLoans(customerRequest)
         }
 
         @Test

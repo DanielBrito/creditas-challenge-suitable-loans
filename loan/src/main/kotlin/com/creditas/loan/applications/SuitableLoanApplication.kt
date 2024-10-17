@@ -1,36 +1,20 @@
 package com.creditas.loan.applications
 
+import com.creditas.loan.applications.handlers.LoanHandler
+import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
-import com.creditas.loan.domain.PersonInfo
 import org.springframework.stereotype.Component
 
 @Component
-class SuitableLoanApplication {
+class SuitableLoanApplication(
+    val loanHandler: LoanHandler
+) {
 
-    companion object {
-        const val THREE_THOUSAND = 3000.0
-        const val FIVE_THOUSAND = 5000.0
-    }
-
-    fun process(personInfo: PersonInfo): List<Loan> {
+    fun process(customer: Customer): List<Loan> {
         val suitableLoans = mutableListOf<Loan>()
 
-        if (incomeIsInLowerRange(personInfo.income) ||
-            incomeIsInMiddleRange(personInfo.income) ||
-            incomeIsInUpperRange(personInfo.income)
-        ) {
-            suitableLoans.add(Loan(type = "Personal", taxes = 4.0))
-        }
+        loanHandler.handle(customer, suitableLoans)
 
         return suitableLoans
     }
-
-    private fun incomeIsInLowerRange(income: Double): Boolean =
-        income <= THREE_THOUSAND
-
-    private fun incomeIsInMiddleRange(income: Double): Boolean =
-        income > THREE_THOUSAND && income < FIVE_THOUSAND
-
-    private fun incomeIsInUpperRange(income: Double): Boolean =
-        income >= FIVE_THOUSAND
 }
