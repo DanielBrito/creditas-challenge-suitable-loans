@@ -1,6 +1,6 @@
 package com.creditas.loan.domain
 
-data class Loan(
-    val type: String,
+interface Loan {
+    val type: String
     val taxes: Double
-)
+}

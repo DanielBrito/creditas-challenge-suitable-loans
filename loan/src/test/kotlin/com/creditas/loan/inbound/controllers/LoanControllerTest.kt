@@ -1,7 +1,7 @@
 package com.creditas.loan.inbound.controllers
 
 import com.creditas.loan.applications.SuitableLoanApplication
-import com.creditas.loan.domain.Loan
+import com.creditas.loan.domain.PersonalLoan
 import com.creditas.loan.inbound.controllers.resources.CustomerInfoPayload
 import com.creditas.loan.inbound.controllers.resources.CustomerRequest
 import com.creditas.loan.inbound.controllers.resources.SuitableLoanPayload
@@ -38,7 +38,7 @@ internal class LoanControllerTest {
         fun arrangeAndAct() {
             every {
                 suitableLoanApplication.process(customerRequest.toCustomer())
-            } returns listOf(Loan(type = "Personal", taxes = 4.0))
+            } returns listOf(PersonalLoan(type = "Personal", taxes = 4.0))
 
             result = loanController.getSuitableLoans(customerRequest)
         }
