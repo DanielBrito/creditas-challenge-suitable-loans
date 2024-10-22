@@ -1,7 +1,7 @@
 package com.creditas.loan.inbound.controllers
 
-import com.creditas.loan.applications.SuitableLoanApplication
 import com.creditas.loan.domain.PersonalLoan
+import com.creditas.loan.domain.applications.SuitableLoanApplication
 import com.creditas.loan.inbound.controllers.resources.CustomerInfoPayload
 import com.creditas.loan.inbound.controllers.resources.CustomerRequest
 import com.creditas.loan.inbound.controllers.resources.SuitableLoanPayload

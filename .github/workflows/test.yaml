@@ -34,7 +34,7 @@ jobs:
         working-directory: loan
         run: ./gradlew test -i
 
-  component-test:
+  integration-test:
     runs-on: ubuntu-latest
     needs: [lint]
     steps:
@@ -45,6 +45,6 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
           cache: 'gradle'
-      - name: Run component test
+      - name: Run integration test
         working-directory: loan
-        run: ./gradlew componentTest -i
+        run: ./gradlew integrationTest -i

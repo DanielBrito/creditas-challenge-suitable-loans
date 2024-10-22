@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.post
 
 @AutoConfigureMockMvc
 @SpringBootTest(classes = [LoanApplication::class])
-internal class LoanControllerComponentTest {
+internal class LoanControllerIntegrationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc

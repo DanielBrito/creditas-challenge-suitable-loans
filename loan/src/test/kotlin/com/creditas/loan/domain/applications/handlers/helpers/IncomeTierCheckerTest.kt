@@ -1,4 +1,4 @@
-package com.creditas.loan.applications.handlers.helpers
+package com.creditas.loan.domain.applications.handlers.helpers
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName

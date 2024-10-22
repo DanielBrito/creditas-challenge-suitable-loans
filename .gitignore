@@ -1,7 +1,7 @@
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
-/.kotlin/
+.kotlin
 
 # Compiled class file and paths
 *.class

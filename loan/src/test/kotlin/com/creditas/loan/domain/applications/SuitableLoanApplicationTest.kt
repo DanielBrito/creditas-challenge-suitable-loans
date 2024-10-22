@@ -1,9 +1,9 @@
-package com.creditas.loan.applications
+package com.creditas.loan.domain.applications
 
-import com.creditas.loan.applications.handlers.PersonalLoanHandler
 import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
 import com.creditas.loan.domain.PersonalLoan
+import com.creditas.loan.domain.applications.handlers.PersonalLoanHandler
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot

@@ -1,38 +1,23 @@
-package com.creditas.loan.applications.handlers
+package com.creditas.loan.domain.applications.handlers
 
 import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
-import com.creditas.loan.domain.PayrollLoan
+import com.creditas.loan.domain.PersonalLoan
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-internal class PayrollLoanHandlerTest {
-    private val payrollLoanHandler = PayrollLoanHandler()
+internal class PersonalLoanHandlerTest {
+    private val personalHandler = PersonalLoanHandler()
 
     @Nested
     @DisplayName("given a customer and a list of suitable loans")
-    inner class HandlePayrollLoan {
-        private val expectedSuitableLoans = mutableListOf(PayrollLoan())
+    inner class HandlePersonalLoan {
+        private val expectedSuitableLoans = mutableListOf(PersonalLoan())
 
         @Test
-        fun `adds payroll loan if income is from tier three`() {
-            val customer = Customer(
-                name = "Daniel",
-                age = 30,
-                location = "SP",
-                income = 6000.0
-            )
-            val suitableLoans = mutableListOf<Loan>()
-
-            payrollLoanHandler.handle(customer, suitableLoans)
-
-            assertThat(suitableLoans).isEqualTo(expectedSuitableLoans)
-        }
-
-        @Test
-        fun `does not add payroll loan if income is from tier one`() {
+        fun `adds personal loan if income is from tier one`() {
             val customer = Customer(
                 name = "Daniel",
                 age = 30,
@@ -41,13 +26,13 @@ internal class PayrollLoanHandlerTest {
             )
             val suitableLoans = mutableListOf<Loan>()
 
-            payrollLoanHandler.handle(customer, suitableLoans)
+            personalHandler.handle(customer, suitableLoans)
 
-            assertThat(suitableLoans).isEmpty()
+            assertThat(suitableLoans).isEqualTo(expectedSuitableLoans)
         }
 
         @Test
-        fun `does not add payroll loan if income is from tier two`() {
+        fun `adds personal loan if income is from tier two`() {
             val customer = Customer(
                 name = "Daniel",
                 age = 30,
@@ -56,9 +41,24 @@ internal class PayrollLoanHandlerTest {
             )
             val suitableLoans = mutableListOf<Loan>()
 
-            payrollLoanHandler.handle(customer, suitableLoans)
+            personalHandler.handle(customer, suitableLoans)
 
-            assertThat(suitableLoans).isEmpty()
+            assertThat(suitableLoans).isEqualTo(expectedSuitableLoans)
+        }
+
+        @Test
+        fun `adds personal loan if income is from tier three`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 6000.0
+            )
+            val suitableLoans = mutableListOf<Loan>()
+
+            personalHandler.handle(customer, suitableLoans)
+
+            assertThat(suitableLoans).isEqualTo(expectedSuitableLoans)
         }
     }
 }
