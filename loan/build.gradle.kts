@@ -88,6 +88,8 @@ tasks.test {
 }
 
 tasks.register<JacocoReport>("jacocoReport") {
+	description = "Generates the HTML documentation for this project"
+	group = JavaBasePlugin.DOCUMENTATION_GROUP
 	sourceSets(sourceSets.main.get())
 	executionData(fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec"))
 
