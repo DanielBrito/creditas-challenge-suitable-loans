@@ -29,7 +29,7 @@ var detektVersion = "1.23.7"
 var mockkVersion = "1.13.12"
 
 testSets {
-	"componentTest"()
+	"integrationTest"()
 }
 
 dependencies {
@@ -96,5 +96,6 @@ tasks.register<JacocoReport>("jacocoReport") {
 		csv.required.set(false)
 		html.required.set(true)
 	}
+
 	ignorePackagesInJacocoReport(classDirectories)
 }
