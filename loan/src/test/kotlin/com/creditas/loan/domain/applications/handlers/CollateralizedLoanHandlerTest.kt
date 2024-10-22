@@ -1,4 +1,4 @@
-package com.creditas.loan.applications.handlers
+package com.creditas.loan.domain.applications.handlers
 
 import com.creditas.loan.domain.CollateralizedLoan
 import com.creditas.loan.domain.Customer
@@ -17,7 +17,7 @@ internal class CollateralizedLoanHandlerTest {
         private val expectedSuitableLoans = mutableListOf(CollateralizedLoan())
 
         @Test
-        fun `adds collateralized loan if income is from tier one and customer lives in SP and is under 30s`() {
+        fun `adds collateralized loan if income is from tier one and customer lives in SP and is under 30 YO`() {
             val customer = Customer(
                 name = "Daniel",
                 age = 29,
@@ -47,7 +47,7 @@ internal class CollateralizedLoanHandlerTest {
         }
 
         @Test
-        fun `adds collateralized loan if income is from tier three and customer is under 30s`() {
+        fun `adds collateralized loan if income is from tier three and customer is under 30 YO`() {
             val customer = Customer(
                 name = "Daniel",
                 age = 25,
@@ -92,7 +92,7 @@ internal class CollateralizedLoanHandlerTest {
         }
 
         @Test
-        fun `does not add collateralized loan if income is less than or equal to 3000 and age is over 30`() {
+        fun `does not add collateralized loan if income is less than or equal to 3000 and age is over 30 YO`() {
             val customer = Customer(
                 name = "Daniel",
                 age = 40,

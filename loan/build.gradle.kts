@@ -64,3 +64,37 @@ detekt {
 	toolVersion = detektVersion
 	autoCorrect = true
 }
+
+fun ignorePackagesInJacocoReport(classDirectories: ConfigurableFileCollection) {
+	classDirectories.setFrom(
+		files(
+			classDirectories.files.map {
+				fileTree(it).apply {
+					exclude(
+						"**/creditas/**/*.java",
+						"**/creditas/**/*.kts",
+						"**/loan/configuration/*",
+						"**/loan/LoanApplication*",
+						"**/loan/**/resources/*"
+					)
+				}
+			}
+		)
+	)
+}
+
+tasks.test {
+	finalizedBy("jacocoReport")
+}
+
+tasks.register<JacocoReport>("jacocoReport") {
+	sourceSets(sourceSets.main.get())
+	executionData(fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec"))
+
+	reports {
+		xml.required.set(true)
+		csv.required.set(false)
+		html.required.set(true)
+	}
+	ignorePackagesInJacocoReport(classDirectories)
+}

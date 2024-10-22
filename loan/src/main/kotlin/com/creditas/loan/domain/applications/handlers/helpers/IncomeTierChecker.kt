@@ -1,4 +1,4 @@
-package com.creditas.loan.applications.handlers.helpers
+package com.creditas.loan.domain.applications.handlers.helpers
 
 object IncomeTierChecker {
     private const val THREE_THOUSAND = 3000.0
