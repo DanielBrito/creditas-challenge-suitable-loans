@@ -9,6 +9,7 @@ plugins {
 	id("org.unbroken-dome.test-sets") version "4.1.0"
 	id("io.gitlab.arturbosch.detekt") version "1.23.7"
 	id("jacoco")
+	id("org.sonarqube") version "5.1.0.4882"
 }
 
 group = "com.creditas"
@@ -65,6 +66,24 @@ detekt {
 	autoCorrect = true
 }
 
+
+sonar {
+	val projectKey = project.findProperty("sonarProjectKey") ?: ""
+	val organization = project.findProperty("sonarOrganization") ?: ""
+
+	properties {
+		property("sonar.projectKey", projectKey)
+		property("sonar.language", "kotlin")
+		property("sonar.organization", organization)
+		property("sonar.host.url", "https://sonarcloud.io")
+		property("sonar.exclusions", "**/creditas/**/*.java," +
+				"**/creditas/**/*.kts," +
+				"**/loan/configuration/*," +
+				"**/loan/LoanApplication.kt," +
+				"**/loan/**/resources/*,")
+	}
+}
+
 fun ignorePackagesInJacocoReport(classDirectories: ConfigurableFileCollection) {
 	classDirectories.setFrom(
 		files(
@@ -88,6 +107,8 @@ tasks.test {
 }
 
 tasks.register<JacocoReport>("jacocoReport") {
+	description = "Generates the HTML documentation for this project"
+	group = JavaBasePlugin.DOCUMENTATION_GROUP
 	sourceSets(sourceSets.main.get())
 	executionData(fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec"))
 
