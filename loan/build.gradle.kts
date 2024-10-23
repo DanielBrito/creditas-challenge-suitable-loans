@@ -68,9 +68,13 @@ detekt {
 
 
 sonar {
+	val projectKey = System.getenv("SONAR_PROJECT_KEY") ?: ""
+	val organization = System.getenv("SONAR_ORGANIZATION") ?: ""
+
 	properties {
-		property("sonar.projectKey", "DanielBrito_creditas-challenge-suitable-loans")
+		property("sonar.projectKey", projectKey)
 		property("sonar.language", "kotlin")
+		property("sonar.organization", organization)
 		property("sonar.host.url", "https://sonarcloud.io")
 		property("sonar.exclusions", "**/creditas/**/*.java," +
 				"**/creditas/**/*.kts," +
