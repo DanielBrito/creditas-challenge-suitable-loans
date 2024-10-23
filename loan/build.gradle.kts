@@ -68,8 +68,8 @@ detekt {
 
 
 sonar {
-	val projectKey = project.findProperty("sonarProjectKey") ?: ""
-	val organization = project.findProperty("sonarOrganization") ?: ""
+	val projectKey = System.getenv("SONAR_PROJECT_KEY") ?: ""
+	val organization = System.getenv("SONAR_ORGANIZATION") ?: ""
 
 	properties {
 		property("sonar.projectKey", projectKey)
