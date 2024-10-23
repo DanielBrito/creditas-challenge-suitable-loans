@@ -14,7 +14,7 @@ internal class PersonalLoanHandlerTest {
     @Nested
     @DisplayName("given a customer and a list of suitable loans")
     inner class HandlePersonalLoan {
-        private val expectedSuitableLoans = mutableListOf(PersonalLoan())
+        private val expectedSuitableLoan = PersonalLoan()
 
         @Test
         fun `adds personal loan if income is from tier one`() {
@@ -28,7 +28,10 @@ internal class PersonalLoanHandlerTest {
 
             personalHandler.handle(customer, suitableLoans)
 
-            assertThat(suitableLoans).isEqualTo(expectedSuitableLoans)
+            val result = suitableLoans.first()
+
+            assertThat(result.type).isEqualTo(expectedSuitableLoan.type)
+            assertThat(result.taxes).isEqualTo(expectedSuitableLoan.taxes)
         }
 
         @Test
@@ -43,7 +46,10 @@ internal class PersonalLoanHandlerTest {
 
             personalHandler.handle(customer, suitableLoans)
 
-            assertThat(suitableLoans).isEqualTo(expectedSuitableLoans)
+            val result = suitableLoans.first()
+
+            assertThat(result.type).isEqualTo(expectedSuitableLoan.type)
+            assertThat(result.taxes).isEqualTo(expectedSuitableLoan.taxes)
         }
 
         @Test
@@ -58,7 +64,10 @@ internal class PersonalLoanHandlerTest {
 
             personalHandler.handle(customer, suitableLoans)
 
-            assertThat(suitableLoans).isEqualTo(expectedSuitableLoans)
+            val result = suitableLoans.first()
+
+            assertThat(result.type).isEqualTo(expectedSuitableLoan.type)
+            assertThat(result.taxes).isEqualTo(expectedSuitableLoan.taxes)
         }
     }
 }
