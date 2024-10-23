@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: report
-          path: build/reports/jacoco
+          path: loan/build/reports/jacoco
 
   sonarqube:
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: report
-          path: build/reports/jacoco
+          path: loan/build/reports/jacoco
       - run: ./gradlew sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
