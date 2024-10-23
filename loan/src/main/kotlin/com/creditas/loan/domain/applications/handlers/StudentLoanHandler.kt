@@ -2,11 +2,8 @@ package com.creditas.loan.domain.applications.handlers
 
 import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
-import com.creditas.loan.domain.PersonalLoan
 import com.creditas.loan.domain.StudentLoan
 import com.creditas.loan.domain.applications.handlers.helpers.IncomeTierChecker.isTierOne
-import com.creditas.loan.domain.applications.handlers.helpers.IncomeTierChecker.isTierThree
-import com.creditas.loan.domain.applications.handlers.helpers.IncomeTierChecker.isTierTwo
 import org.springframework.stereotype.Component
 
 @Component
