@@ -5,6 +5,15 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
+
+  docker-hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          ignore: ${{ inputs.ignore-rules }}
+
   lint:
     runs-on: ubuntu-latest
     steps:
