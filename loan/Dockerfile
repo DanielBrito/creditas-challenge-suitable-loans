@@ -1,3 +1,4 @@
+WORKDIR /app
 FROM amazoncorretto:17.0.0
 LABEL daniel.com="daniel@email.com"
 ARG JAR_FILE=target/*.jar
