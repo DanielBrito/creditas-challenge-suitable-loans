@@ -1,6 +1,10 @@
 name: Quality Assurance
 
 on:
+  push:
+    branches:
+      - main
+      - issue*
   workflow_call:
     secrets:
       SONAR_TOKEN:
