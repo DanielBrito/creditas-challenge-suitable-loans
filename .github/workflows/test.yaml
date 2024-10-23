@@ -13,6 +13,7 @@ jobs:
       - uses: hadolint/hadolint-action@v3.1.0
         with:
           ignore: ${{ inputs.ignore-rules }}
+        working-directory: loan
 
   lint:
     runs-on: ubuntu-latest
