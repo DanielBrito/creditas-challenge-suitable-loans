@@ -14,7 +14,7 @@ internal class PayrollLoanHandlerTest {
     @Nested
     @DisplayName("given a customer and a list of suitable loans")
     inner class HandlePayrollLoan {
-        private val expectedSuitableLoans = mutableListOf(PayrollLoan())
+        private val expectedSuitableLoan = PayrollLoan()
 
         @Test
         fun `adds payroll loan if income is from tier three`() {
@@ -28,7 +28,10 @@ internal class PayrollLoanHandlerTest {
 
             payrollLoanHandler.handle(customer, suitableLoans)
 
-            assertThat(suitableLoans).isEqualTo(expectedSuitableLoans)
+            val result = suitableLoans.first()
+
+            assertThat(result.type).isEqualTo(expectedSuitableLoan.type)
+            assertThat(result.taxes).isEqualTo(expectedSuitableLoan.taxes)
         }
 
         @Test

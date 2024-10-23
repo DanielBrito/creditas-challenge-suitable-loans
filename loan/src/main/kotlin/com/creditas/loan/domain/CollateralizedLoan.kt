@@ -1,6 +1,12 @@
 package com.creditas.loan.domain
 
-data class CollateralizedLoan(
-    override val type: String = "Collateralized",
-    override val taxes: Double = 3.0
-) : Loan
+class CollateralizedLoan private constructor(
+    override val type: String,
+    override val taxes: Double
+) : Loan {
+
+    companion object {
+        operator fun invoke(type: String = "Collateralized", taxes: Double = 3.0) =
+            CollateralizedLoan(type, taxes)
+    }
+}
