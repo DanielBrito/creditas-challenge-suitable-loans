@@ -46,7 +46,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: report
-          working-directory: loan
           path: build/reports/jacoco
       - run: ./gradlew sonar
         env:
