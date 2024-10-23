@@ -13,9 +13,8 @@ jobs:
       - name: Run Hadolint
         uses: hadolint/hadolint-action@v3.1.0
         with:
+          dockerfile: loan/Dockerfile
           ignore: ${{ inputs.ignore-rules }}
-      - name: Change directory
-        run: cd loan
 
   lint:
     runs-on: ubuntu-latest
