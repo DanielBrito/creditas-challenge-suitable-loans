@@ -68,14 +68,8 @@ detekt {
 
 
 sonar {
-	val projectKey = project.findProperty("sonarProjectKey") ?: ""
-	val organization = project.findProperty("sonarOrganization") ?: ""
-
 	properties {
-		property("sonar.projectKey", projectKey)
-		property("sonar.language", "kotlin")
-		property("sonar.organization", organization)
-		property("sonar.host.url", "https://sonarcloud.io")
+		property("sonar.projectKey", "DanielBrito_creditas-challenge-suitable-loans")
 		property("sonar.exclusions", "**/creditas/**/*.java," +
 				"**/creditas/**/*.kts," +
 				"**/loan/configuration/*," +
