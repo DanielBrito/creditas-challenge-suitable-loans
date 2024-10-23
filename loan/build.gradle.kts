@@ -70,6 +70,8 @@ detekt {
 sonar {
 	properties {
 		property("sonar.projectKey", "DanielBrito_creditas-challenge-suitable-loans")
+		property("sonar.language", "kotlin")
+		property("sonar.host.url", "https://sonarcloud.io")
 		property("sonar.exclusions", "**/creditas/**/*.java," +
 				"**/creditas/**/*.kts," +
 				"**/loan/configuration/*," +
