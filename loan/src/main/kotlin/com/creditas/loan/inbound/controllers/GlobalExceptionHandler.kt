@@ -17,6 +17,8 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun handleJsonParseException(ex: HttpMessageNotReadableException): ResponseEntity<Map<String, String>> {
+        println("Failed to parse JSON: ${ex.localizedMessage}")
+
         val error = mapOf("error" to "Invalid request payload.")
         return ResponseEntity.badRequest().body(error)
     }
