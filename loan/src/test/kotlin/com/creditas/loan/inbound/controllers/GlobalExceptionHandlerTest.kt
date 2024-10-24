@@ -63,6 +63,8 @@ class GlobalExceptionHandlerTest {
     fun `handles json parse exception`() {
         val exception = mockk<HttpMessageNotReadableException>()
 
+        every { exception.localizedMessage } returns "HttpMessageNotReadableException: Failed to parse JSON."
+
         val response: ResponseEntity<Map<String, String>> = globalExceptionHandler.handleJsonParseException(exception)
 
         assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
