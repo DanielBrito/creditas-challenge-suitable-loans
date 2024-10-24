@@ -4,9 +4,9 @@
 
 ## Motivation
 
-The main purpose for working on this challenge is to improve my development skills (clean code, design patterns, TDD, DDD etc.), because I've been into too much theory, and I almost don't put that knowledge into practice.
+The main purpose for working on this challenge was to improve my development skills (clean code, design patterns, TDD, DDD etc.), because I've been into too much theory, and I almost don't put that knowledge into practice.
 
-I've implemented the requirements of the challenge and also complemented with integration and mutation tests, as well as linting, code quality and coverage validations. All of these validations run in a [CI/CD pipeline](https://github.com/DanielBrito/creditas-challenge-suitable-loans/actions) that fails when some of the requirements isn't achieved.
+So, I've implemented the requirements of the challenge and also complemented with integration and mutation tests, as well as linting, code quality and coverage validations. All of these validations run in a [CI/CD pipeline](https://github.com/DanielBrito/creditas-challenge-suitable-loans/actions) that fails when some of the requirements isn't achieved, blocking the merge into the main branch.
 
 To manage the implementation of this application, I've created a [GitHub Project](https://github.com/users/DanielBrito/projects/5/views/1) to add tasks, and work on them by following a Kanban approach.
 
@@ -34,21 +34,21 @@ TODO (commands)
 
 - Making a request
 
-TODO (curl)
+TODO (curl, screenshot - insomnia)
 
 ### Validations
 
 #### Unit Testing
 
-TODO (screenshot)
+TODO (command, screenshot)
 
 #### Mutation Testing
 
-TODO (explanation and screenshot)
+TODO (explanation, command and screenshot)
 
 #### Integration Testing
 
-TODO (screenshoot)
+TODO (command, screenshoot)
 
 #### Quality Assurance
 
