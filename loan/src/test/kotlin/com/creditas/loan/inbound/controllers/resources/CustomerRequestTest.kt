@@ -51,5 +51,22 @@ internal class CustomerRequestTest {
 
             assertThat(result).isEqualTo("Daniel")
         }
+
+        @Test
+        fun `returns proper value when getting customer cpf`() {
+            val customerRequest = CustomerRequest(
+                customer = CustomerInfoPayload(
+                    name = "Daniel",
+                    cpf = "123.456.789-10",
+                    age = 31,
+                    location = "CE",
+                    income = 3000.0
+                )
+            )
+
+            val result = customerRequest.customer.cpf
+
+            assertThat(result).isEqualTo("123.456.789-10")
+        }
     }
 }

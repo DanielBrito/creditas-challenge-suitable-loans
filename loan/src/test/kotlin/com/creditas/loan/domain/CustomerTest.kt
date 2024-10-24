@@ -12,6 +12,20 @@ internal class CustomerTest {
     inner class Location {
 
         @Test
+        fun `returns proper value when getting location`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 3000.0
+            )
+
+            val result = customer.location
+
+            assertThat(result).isEqualTo("SP")
+        }
+
+        @Test
         fun `returns true if the customer lives in SP`() {
             val customer = Customer(
                 name = "Daniel",
@@ -45,6 +59,20 @@ internal class CustomerTest {
     inner class Age {
 
         @Test
+        fun `returns proper value when getting age`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 3000.0
+            )
+
+            val result = customer.age
+
+            assertThat(result).isEqualTo(30)
+        }
+
+        @Test
         fun `returns true if the customer is under 30 YO`() {
             val customer = Customer(
                 name = "Daniel",
@@ -70,6 +98,39 @@ internal class CustomerTest {
             val result = customer.isUnder30YO
 
             assertThat(result).isFalse()
+        }
+
+        @Test
+        fun `returns false if the customer is 30 YO`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 3000.0
+            )
+
+            val result = customer.isUnder30YO
+
+            assertThat(result).isFalse()
+        }
+    }
+
+    @Nested
+    @DisplayName("given a customer name")
+    inner class Name {
+
+        @Test
+        fun `returns proper value when getting name`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 3000.0
+            )
+
+            val result = customer.name
+
+            assertThat(result).isEqualTo("Daniel")
         }
     }
 }

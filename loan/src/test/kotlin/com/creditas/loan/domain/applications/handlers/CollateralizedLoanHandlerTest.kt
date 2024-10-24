@@ -1,6 +1,5 @@
 package com.creditas.loan.domain.applications.handlers
 
-import com.creditas.loan.domain.CollateralizedLoan
 import com.creditas.loan.domain.Customer
 import com.creditas.loan.domain.Loan
 import org.assertj.core.api.Assertions.assertThat
@@ -14,7 +13,6 @@ internal class CollateralizedLoanHandlerTest {
     @Nested
     @DisplayName("given a customer and a list of suitable loans")
     inner class HandleCollateralizedLoan {
-        private val expectedSuitableLoan = CollateralizedLoan()
 
         @Test
         fun `adds collateralized loan if income is from tier one and customer lives in SP and is under 30 YO`() {
@@ -30,8 +28,8 @@ internal class CollateralizedLoanHandlerTest {
 
             val result = suitableLoans.first()
 
-            assertThat(result.type).isEqualTo(expectedSuitableLoan.type)
-            assertThat(result.taxes).isEqualTo(expectedSuitableLoan.taxes)
+            assertThat(result.type).isEqualTo("Collateralized")
+            assertThat(result.taxes).isEqualTo(3.0)
         }
 
         @Test
@@ -48,8 +46,8 @@ internal class CollateralizedLoanHandlerTest {
 
             val result = suitableLoans.first()
 
-            assertThat(result.type).isEqualTo(expectedSuitableLoan.type)
-            assertThat(result.taxes).isEqualTo(expectedSuitableLoan.taxes)
+            assertThat(result.type).isEqualTo("Collateralized")
+            assertThat(result.taxes).isEqualTo(3.0)
         }
 
         @Test
@@ -66,8 +64,8 @@ internal class CollateralizedLoanHandlerTest {
 
             val result = suitableLoans.first()
 
-            assertThat(result.type).isEqualTo(expectedSuitableLoan.type)
-            assertThat(result.taxes).isEqualTo(expectedSuitableLoan.taxes)
+            assertThat(result.type).isEqualTo("Collateralized")
+            assertThat(result.taxes).isEqualTo(3.0)
         }
 
         @Test

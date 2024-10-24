@@ -70,4 +70,65 @@ internal class PersonalLoanHandlerTest {
             assertThat(result.taxes).isEqualTo(expectedSuitableLoan.taxes)
         }
     }
+
+    @Nested
+    @DisplayName("given a customer")
+    inner class IsApplicable {
+
+        @Test
+        fun `returns true when income is from tier one`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 2000.0
+            )
+
+            val result = personalHandler.isApplicable(customer)
+
+            assertThat(result).isTrue()
+        }
+
+        @Test
+        fun `returns true when income is from tier two`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 4000.0
+            )
+
+            val result = personalHandler.isApplicable(customer)
+
+            assertThat(result).isTrue()
+        }
+
+        @Test
+        fun `returns true when income is from tier three`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 6000.0
+            )
+
+            val result = personalHandler.isApplicable(customer)
+
+            assertThat(result).isTrue()
+        }
+
+        @Test
+        fun `returns false when income is from none of the tiers`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = 0.0
+            )
+
+            val result = personalHandler.isApplicable(customer)
+
+            assertThat(result).isFalse()
+        }
+    }
 }
