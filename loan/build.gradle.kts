@@ -26,8 +26,8 @@ repositories {
 }
 
 val assertJVersion = "3.26.3"
-var detektVersion = "1.23.7"
-var mockkVersion = "1.13.12"
+val detektVersion = "1.23.7"
+val mockkVersion = "1.13.12"
 
 testSets {
 	"integrationTest"()
@@ -120,4 +120,16 @@ tasks.register<JacocoReport>("jacocoReport") {
 	}
 
 	ignorePackagesInJacocoReport(classDirectories)
+}
+
+pitest {
+	setProperty("junit5PluginVersion", "1.2.0")
+	setProperty("testPlugin", "junit5")
+	setProperty("targetClasses", listOf("com.creditas.loan.*"))
+	setProperty("excludedClasses", listOf("com.creditas.loan.LoanApplicationKt"))
+	setProperty("targetTests", listOf("com.creditas.loan.*"))
+	setProperty("outputFormats", listOf("HTML"))
+	setProperty("threads", 2)
+	setProperty("jvmArgs", listOf("-Xmx2G"))
+	setProperty("withHistory", false)
 }

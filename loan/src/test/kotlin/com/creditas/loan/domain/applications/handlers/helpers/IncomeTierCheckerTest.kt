@@ -16,8 +16,22 @@ class IncomeTierCheckerTest {
         inner class TierOne {
 
             @Test
-            fun `returns true if income is less than or equal to 3000`() {
+            fun `returns true if income is greater than 0`() {
+                val result = IncomeTierChecker.isTierOne(1.0)
+
+                assertThat(result).isTrue()
+            }
+
+            @Test
+            fun `returns true if income is less than 3000`() {
                 val result = IncomeTierChecker.isTierOne(1000.0)
+
+                assertThat(result).isTrue()
+            }
+
+            @Test
+            fun `returns true if income is equal to 3000`() {
+                val result = IncomeTierChecker.isTierOne(3000.0)
 
                 assertThat(result).isTrue()
             }
@@ -25,6 +39,20 @@ class IncomeTierCheckerTest {
             @Test
             fun `returns false if income is greater than 3000`() {
                 val result = IncomeTierChecker.isTierOne(3500.0)
+
+                assertThat(result).isFalse()
+            }
+
+            @Test
+            fun `returns false if income is less than 0`() {
+                val result = IncomeTierChecker.isTierOne(-10.0)
+
+                assertThat(result).isFalse()
+            }
+
+            @Test
+            fun `returns false if income is equal to 0`() {
+                val result = IncomeTierChecker.isTierOne(0.0)
 
                 assertThat(result).isFalse()
             }
@@ -54,6 +82,20 @@ class IncomeTierCheckerTest {
 
                 assertThat(result).isFalse()
             }
+
+            @Test
+            fun `returns false if income is equal to 3000`() {
+                val result = IncomeTierChecker.isTierTwo(3000.0)
+
+                assertThat(result).isFalse()
+            }
+
+            @Test
+            fun `returns false if income is equal to 5000`() {
+                val result = IncomeTierChecker.isTierTwo(5000.0)
+
+                assertThat(result).isFalse()
+            }
         }
 
         @Nested
@@ -61,8 +103,15 @@ class IncomeTierCheckerTest {
         inner class TierThree {
 
             @Test
-            fun `returns true if income is greater than or equal to 5000`() {
+            fun `returns true if income is greater than 5000`() {
                 val result = IncomeTierChecker.isTierThree(7000.0)
+
+                assertThat(result).isTrue()
+            }
+
+            @Test
+            fun `returns true if income is equal to 5000`() {
+                val result = IncomeTierChecker.isTierThree(5000.0)
 
                 assertThat(result).isTrue()
             }
