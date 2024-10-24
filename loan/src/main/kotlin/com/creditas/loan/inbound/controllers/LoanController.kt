@@ -3,6 +3,7 @@ package com.creditas.loan.inbound.controllers
 import com.creditas.loan.domain.applications.SuitableLoanApplication
 import com.creditas.loan.inbound.controllers.resources.CustomerRequest
 import com.creditas.loan.inbound.controllers.resources.SuitableLoansResponse
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus.OK
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,7 +17,7 @@ class LoanController(
 
     @PostMapping("/suitable-loans")
     fun getSuitableLoans(
-        @RequestBody customerRequest: CustomerRequest
+        @Valid @RequestBody customerRequest: CustomerRequest
     ): ResponseEntity<SuitableLoansResponse> {
         val suitableLoans = suitableLoanApplication.process(customerRequest.toCustomer())
         val suitableLoansResponse = SuitableLoansResponse.from(customerRequest.getName(), suitableLoans)
