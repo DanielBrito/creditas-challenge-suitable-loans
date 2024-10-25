@@ -26,7 +26,6 @@ data class CustomerInfoPayload(
     @field:NotBlank(message = "Name cannot be blank.")
     val name: String,
 
-    @field:NotBlank(message = "CPF cannot be blank.")
     @field:Pattern(
         regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}\$",
         message = "CPF should be in the format ###.###.###-##"
