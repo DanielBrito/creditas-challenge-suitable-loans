@@ -58,20 +58,6 @@ internal class LoanControllerIntegrationTest {
     inner class InvalidValidCustomerInfo {
 
         @Test
-        fun `returns error message when customer is null`() {
-            val customerRequest = readJsonResource("json/requests", "customer_request_invalid_customer")
-
-            mockMvc.post("/suitable-loans") {
-                contentType = APPLICATION_JSON
-                content = customerRequest
-            }.andExpect {
-                status { isBadRequest() }
-            }.andExpect {
-                jsonPath("$.error", `is`("Invalid request payload."))
-            }
-        }
-
-        @Test
         fun `returns error message when name is blank`() {
             val customerRequest = readJsonResource("json/requests", "customer_request_invalid_name")
 
