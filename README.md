@@ -6,7 +6,7 @@
 
 The main purpose for working on this challenge was to improve my development skills (clean code, design patterns, TDD, DDD etc.), because I've been into too much theory, and I almost don't put that knowledge into practice.
 
-So, I've implemented the requirements of the challenge and also complemented with integration and mutation tests, as well as linting, code quality and coverage validations. All of these validations run in a [CI/CD pipeline](https://github.com/DanielBrito/creditas-challenge-suitable-loans/actions) that fails when some of the requirements isn't achieved, blocking the merge into the main branch.
+So, I've implemented the requirements of the challenge and also complemented with integration* and mutation tests, as well as linting*, code quality* and coverage* validations. All of these validations (*) run in a [CI/CD pipeline](https://github.com/DanielBrito/creditas-challenge-suitable-loans/actions) that fails when some of the requirements isn't achieved, blocking the merge into the main branch.
 
 To manage the implementation of this application, I've created a [GitHub Project](https://github.com/users/DanielBrito/projects/5/views/1) to add tasks, and work on them by following a Kanban approach.
 
@@ -24,32 +24,80 @@ Besides using **Kotlin** along with **Spring Framework Web**, I also included so
 
 ## Running Locally
 
-- Building with Docker
+Inside the `loan` folder execute the following commands:
 
-TODO (commands)
+- Build the project and generate the `jar` file:
+```shell
+./gradlew clean build
+```
 
-- Running the application
+- Build the Docker image:
+```shell
+docker build -t loan .
+```
 
-TODO (commands)
+- Run the Docker container
+```shell
+docker run -p 8080:8080 loan
+````
 
-- Making a request
+- Making a request:
+```shell
+curl --request POST \
+  --url http://localhost:8080/suitable-loans \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "customer": {
+    "name": "Daniel",
+    "cpf": "123.456.789-10",
+    "age": 30,
+    "location": "SP",
+    "income": 4000.0
+  }
+}'
+```
 
-TODO (curl, screenshot - insomnia)
+- Stopping the application:
+```shell
+# To get the container id or name
+docker ps
+```
+
+```shell
+# To stop the container
+docker stop <id or name>
+```
 
 ### Validations
 
+#### Linter
+
+```shell
+./gradlew detekt
+```
+
 #### Unit Testing
 
-TODO (command, screenshot)
+```shell
+./gradlew test
+```
 
 #### Mutation Testing
 
-TODO (explanation, command and screenshot)
+This project was an excellent opportunity to explore how mutant tests work. It was challenging to kill all of them, but I did my best for the moment.
+
+```shell
+./gradlew pitest
+```
 
 #### Integration Testing
 
-TODO (command, screenshoot)
+```shell
+./gradlew integrationTest
+```
 
-#### Quality Assurance
+#### Coverage
 
-TODO (screenshot)
+```shell
+./gradlew jacocoTestReport
+```

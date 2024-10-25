@@ -1,6 +1,14 @@
+# Use Amazon Corretto image
 FROM amazoncorretto:17.0.0
-LABEL daniel.com="daniel@email.com"
+
+# Adding metadata about the project
+LABEL daniel.email="daniel@email.com"
+
+# Set the working directory inside the container
 WORKDIR /app
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} loan.jar
-ENTRYPOINT ["java","-jar","/app/loan.jar"]
+
+# Copy the JAR file into the container
+COPY build/libs/loan-0.0.1.jar loan.jar
+
+#Run the JAR file
+ENTRYPOINT ["java","-jar","loan.jar"]
