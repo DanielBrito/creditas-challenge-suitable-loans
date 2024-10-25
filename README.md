@@ -1,5 +1,8 @@
 # Loan Type
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DanielBrito_creditas-challenge-suitable-loans&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=DanielBrito_creditas-challenge-suitable-loans)
+[![Test App](https://github.com/DanielBrito/creditas-challenge-suitable-loans/actions/workflows/test.yaml/badge.svg)](https://github.com/DanielBrito/creditas-challenge-suitable-loans/actions/workflows/test.yaml)
+
 [Backend challenge from Creditas](https://github.com/Creditas/challenge/tree/master/backend/code-challenges/kotlin) to check suitable loans for a person based on its characteristics.
 
 ## Motivation
