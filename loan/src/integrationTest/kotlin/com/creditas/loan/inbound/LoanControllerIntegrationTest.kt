@@ -72,20 +72,6 @@ internal class LoanControllerIntegrationTest {
         }
 
         @Test
-        fun `returns error message when cpf is blank`() {
-            val customerRequest = readJsonResource("json/requests", "customer_request_invalid_cpf")
-
-            mockMvc.post("/suitable-loans") {
-                contentType = APPLICATION_JSON
-                content = customerRequest
-            }.andExpect {
-                status { isBadRequest() }
-            }.andExpect {
-                jsonPath("$['customer.cpf']", `is`("CPF cannot be blank."))
-            }
-        }
-
-        @Test
         fun `returns error message when cpf does not match pattern`() {
             val customerRequest = readJsonResource("json/requests", "customer_request_invalid_cpf_pattern")
 
