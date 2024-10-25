@@ -3,3 +3,7 @@ management:
     web:
       exposure:
         include: info, health, metrics
+spring:
+  mvc:
+    dispatcher-servlet:
+      enable-bean-validation: true
