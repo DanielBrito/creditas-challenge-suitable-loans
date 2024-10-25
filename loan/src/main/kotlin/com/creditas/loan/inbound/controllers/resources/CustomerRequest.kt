@@ -29,17 +29,16 @@ data class CustomerInfoPayload(
     @field:NotBlank(message = "CPF cannot be blank.")
     @field:Pattern(
         regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}\$",
-        message = "CPF should be in the format: ###.###.###-##"
+        message = "CPF should be in the format ###.###.###-##"
     )
     val cpf: String,
 
     @field:Min(value = 18, message = "Age must be greater than or equal to 18.")
     val age: Int,
 
-    @field:NotBlank(message = "Location cannot be blank.")
     @field:Pattern(
         regexp = "^(AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)$",
-        message = "Invalid location code."
+        message = "Invalid Brazil location code."
     )
     val location: String,
 

@@ -1,0 +1,9 @@
+{
+  "customer": {
+    "name": "Daniel",
+    "cpf": "123.456.789-10",
+    "age": 15,
+    "location": "CE",
+    "income": 1000.0
+  }
+}
