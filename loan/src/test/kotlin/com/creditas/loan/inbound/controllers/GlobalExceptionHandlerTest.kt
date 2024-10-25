@@ -3,10 +3,10 @@ package com.creditas.loan.inbound.controllers
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.core.MethodParameter
 import org.springframework.http.HttpStatus.BAD_REQUEST
-import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.validation.BindingResult
 import org.springframework.validation.FieldError
@@ -17,57 +17,65 @@ class GlobalExceptionHandlerTest {
     private val globalExceptionHandler = GlobalExceptionHandler()
     private val methodParameter = mockk<MethodParameter>(relaxed = true)
 
-    @Test
-    fun `handles validation exception with single field error`() {
-        val fieldError = FieldError("objectName", "fieldName", "default message")
-        val bindingResult = mockk<BindingResult>()
-        val exception = MethodArgumentNotValidException(methodParameter, bindingResult)
+    @Nested
+    inner class ValidationExceptions {
 
-        every { bindingResult.fieldErrors } returns listOf(fieldError)
+        @Test
+        fun `handles validation exception with single field error`() {
+            val fieldError = FieldError("objectName", "fieldName", "default message")
+            val bindingResult = mockk<BindingResult>()
+            val exception = MethodArgumentNotValidException(methodParameter, bindingResult)
 
-        val response: ResponseEntity<Map<String, String>> = globalExceptionHandler.handleValidationExceptions(exception)
+            every { bindingResult.fieldErrors } returns listOf(fieldError)
 
-        assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
-        assertThat(response.body).isEqualTo(mapOf("fieldName" to "default message"))
+            val response = globalExceptionHandler.handleValidationExceptions(exception)
+
+            assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
+            assertThat(response.body).isEqualTo(mapOf("fieldName" to "default message"))
+        }
+
+        @Test
+        fun `handles validation exception with multiple field errors`() {
+            val fieldError1 = FieldError("objectName", "field1", "error message 1")
+            val fieldError2 = FieldError("objectName", "field2", "error message 2")
+            val bindingResult = mockk<BindingResult>()
+            val exception = MethodArgumentNotValidException(methodParameter, bindingResult)
+
+            every { bindingResult.fieldErrors } returns listOf(fieldError1, fieldError2)
+
+            val response = globalExceptionHandler.handleValidationExceptions(exception)
+
+            assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
+            assertThat(response.body).isEqualTo(mapOf("field1" to "error message 1", "field2" to "error message 2"))
+        }
+
+        @Test
+        fun `handles validation exception with no field errors`() {
+            val bindingResult = mockk<BindingResult>()
+            val exception = MethodArgumentNotValidException(methodParameter, bindingResult)
+
+            every { bindingResult.fieldErrors } returns emptyList()
+
+            val response = globalExceptionHandler.handleValidationExceptions(exception)
+
+            assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
+            assertThat(response.body).isEmpty()
+        }
     }
 
-    @Test
-    fun `handles validation exception with multiple field errors`() {
-        val fieldError1 = FieldError("objectName", "field1", "error message 1")
-        val fieldError2 = FieldError("objectName", "field2", "error message 2")
-        val bindingResult = mockk<BindingResult>()
-        val exception = MethodArgumentNotValidException(methodParameter, bindingResult)
+    @Nested
+    inner class JsonParseException {
 
-        every { bindingResult.fieldErrors } returns listOf(fieldError1, fieldError2)
+        @Test
+        fun `handles json parse exception`() {
+            val exception = mockk<HttpMessageNotReadableException>()
 
-        val response: ResponseEntity<Map<String, String>> = globalExceptionHandler.handleValidationExceptions(exception)
+            every { exception.localizedMessage } returns "HttpMessageNotReadableException: Failed to parse JSON."
 
-        assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
-        assertThat(response.body).isEqualTo(mapOf("field1" to "error message 1", "field2" to "error message 2"))
-    }
+            val response = globalExceptionHandler.handleJsonParseException(exception)
 
-    @Test
-    fun `handles validation exception with no field errors`() {
-        val bindingResult = mockk<BindingResult>()
-        val exception = MethodArgumentNotValidException(methodParameter, bindingResult)
-
-        every { bindingResult.fieldErrors } returns emptyList()
-
-        val response: ResponseEntity<Map<String, String>> = globalExceptionHandler.handleValidationExceptions(exception)
-
-        assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
-        assertThat(response.body).isEmpty()
-    }
-
-    @Test
-    fun `handles json parse exception`() {
-        val exception = mockk<HttpMessageNotReadableException>()
-
-        every { exception.localizedMessage } returns "HttpMessageNotReadableException: Failed to parse JSON."
-
-        val response: ResponseEntity<Map<String, String>> = globalExceptionHandler.handleJsonParseException(exception)
-
-        assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
-        assertThat(response.body).isEqualTo(mapOf("error" to "Invalid request payload."))
+            assertThat(response.statusCode).isEqualTo(BAD_REQUEST)
+            assertThat(response.body).isEqualTo(mapOf("error" to "Invalid request payload."))
+        }
     }
 }
