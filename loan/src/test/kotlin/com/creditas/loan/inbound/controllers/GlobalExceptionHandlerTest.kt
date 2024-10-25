@@ -3,6 +3,7 @@ package com.creditas.loan.inbound.controllers
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.core.MethodParameter
@@ -18,10 +19,11 @@ class GlobalExceptionHandlerTest {
     private val methodParameter = mockk<MethodParameter>(relaxed = true)
 
     @Nested
+    @DisplayName("given a validation exception")
     inner class ValidationExceptions {
 
         @Test
-        fun `handles validation exception with single field error`() {
+        fun `handles when there is a single field error`() {
             val fieldError = FieldError("objectName", "fieldName", "default message")
             val bindingResult = mockk<BindingResult>()
             val exception = MethodArgumentNotValidException(methodParameter, bindingResult)
@@ -35,7 +37,7 @@ class GlobalExceptionHandlerTest {
         }
 
         @Test
-        fun `handles validation exception with multiple field errors`() {
+        fun `handles when there are multiple field errors`() {
             val fieldError1 = FieldError("objectName", "field1", "error message 1")
             val fieldError2 = FieldError("objectName", "field2", "error message 2")
             val bindingResult = mockk<BindingResult>()
@@ -50,7 +52,7 @@ class GlobalExceptionHandlerTest {
         }
 
         @Test
-        fun `handles validation exception with no field errors`() {
+        fun `handles when there are no field errors`() {
             val bindingResult = mockk<BindingResult>()
             val exception = MethodArgumentNotValidException(methodParameter, bindingResult)
 
@@ -64,10 +66,11 @@ class GlobalExceptionHandlerTest {
     }
 
     @Nested
+    @DisplayName("given a json parse exception")
     inner class JsonParseException {
 
         @Test
-        fun `handles json parse exception`() {
+        fun `handles when failing to parse payload`() {
             val exception = mockk<HttpMessageNotReadableException>()
 
             every { exception.localizedMessage } returns "HttpMessageNotReadableException: Failed to parse JSON."
