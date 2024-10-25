@@ -133,4 +133,5 @@ pitest {
 	setProperty("threads", 2)
 	setProperty("jvmArgs", listOf("-Xmx2G"))
 	setProperty("withHistory", false)
+	setProperty("mutationThreshold", 80)
 }
