@@ -10,5 +10,5 @@ WORKDIR /app
 # Copy the JAR file into the container
 COPY build/libs/loan-0.0.1.jar loan.jar
 
-#Run the JAR file
+# Run the JAR file
 ENTRYPOINT ["java","-jar","loan.jar"]
