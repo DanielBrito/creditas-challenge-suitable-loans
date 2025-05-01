@@ -104,3 +104,5 @@ This project was an excellent opportunity to explore how mutant tests work. It w
 ```shell
 ./gradlew jacocoTestReport
 ```
+
+TEST
