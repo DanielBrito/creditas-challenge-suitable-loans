@@ -22,6 +22,7 @@ data class CustomerRequest(
 
     fun getName() = customer.name
 }
+
 data class CustomerInfoPayload(
     @field:NotBlank(message = "Name cannot be blank.")
     val name: String,
