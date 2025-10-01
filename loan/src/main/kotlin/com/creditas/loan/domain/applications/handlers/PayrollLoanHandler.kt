@@ -13,9 +13,7 @@ class PayrollLoanHandler : LoanHandler {
         return isTierThree(customer.income)
     }
 
-    override fun handle(customer: Customer, suitableLoans: MutableList<Loan>) {
-        if (isApplicable(customer)) {
-            suitableLoans.add(PayrollLoan())
-        }
+    override fun handle(customer: Customer): Loan? {
+        return if (isApplicable(customer)) PayrollLoan() else null
     }
 }
