@@ -62,6 +62,20 @@ internal class PersonalLoanHandlerTest {
             assertThat(result?.type).isEqualTo(expectedSuitableLoan.type)
             assertThat(result?.taxes).isEqualTo(expectedSuitableLoan.taxes)
         }
+
+        @Test
+        fun `does not return personal loan if income is not from any tier`() {
+            val customer = Customer(
+                name = "Daniel",
+                age = 30,
+                location = "SP",
+                income = -1.0
+            )
+
+            val result = personalHandler.handle(customer)
+
+            assertThat(result).isNull()
+        }
     }
 
     @Nested
