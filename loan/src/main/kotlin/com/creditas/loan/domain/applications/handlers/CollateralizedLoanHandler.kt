@@ -17,9 +17,7 @@ class CollateralizedLoanHandler : LoanHandler {
             (isTierThree(customer.income) && customer.isUnder30YO)
     }
 
-    override fun handle(customer: Customer, suitableLoans: MutableList<Loan>) {
-        if (isApplicable(customer)) {
-            suitableLoans.add(CollateralizedLoan())
-        }
+    override fun handle(customer: Customer): Loan? {
+        return if (isApplicable(customer)) CollateralizedLoan() else null
     }
 }

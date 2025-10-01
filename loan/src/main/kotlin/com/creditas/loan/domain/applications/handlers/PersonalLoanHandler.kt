@@ -15,9 +15,7 @@ class PersonalLoanHandler : LoanHandler {
         return customer.income.let { isTierOne(it) || isTierTwo(it) || isTierThree(it) }
     }
 
-    override fun handle(customer: Customer, suitableLoans: MutableList<Loan>) {
-        if (isApplicable(customer)) {
-            suitableLoans.add(PersonalLoan())
-        }
+    override fun handle(customer: Customer): Loan? {
+        return if (isApplicable(customer)) PersonalLoan() else null
     }
 }
